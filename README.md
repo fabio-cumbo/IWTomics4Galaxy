@@ -7,8 +7,8 @@
 - [x] dati veri
 - [ ] pipeline per paper
 - [ ] creare history su usegalaxy con dati veri ed condividere con Anton
-- [ ] far provare il tool ad Anton 
-- [ ] testare gli errori
+- [ ] far provare il tool ad Anton
+- [ ] testare gli errori
 
 ## MEMO:
 - aggiornare link bioconductor
