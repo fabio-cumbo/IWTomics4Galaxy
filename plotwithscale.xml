@@ -50,11 +50,11 @@
     </help>
 
     <!-- RData -->
-    <param format="rdata" name="rdata" type="data" label="Select IWTomicsData object with the test results" />
+    <param format="rdata" name="rdata" type="data" label="Select IWTomicsData object with the test results" help="File created by 'IWTomics Test and Plot'" />
     <!-- test IDs -->
-    <param format="tabular" name="testids" type="data" label="Select test IDs" />
+    <param format="tabular" name="testids" type="data" label="Select test IDs" help="File created by 'IWTomics Test and Plot'" />
     <!-- feature IDs -->
-    <param format="tabular" name="featureids" type="data" label="Select feature IDs" />
+    <param format="tabular" name="featureids" type="data" label="Select feature IDs" help="File created by 'IWTomics Test and Plot'" />
 
     <!-- repeat threshold on test scale -->
     <section name="scalesection" title="Threshold on test scale" expanded="True" help="">
@@ -166,7 +166,7 @@ This Galaxy tool has been developed by Fabio Cumbo (Third University of Rome, It
 It implements a simplified version of the function *IWTomicsTest*, *plotTest* and *plotSummary* for *IWTomicsData* objects. 
 The complete version can be found in the *R/Bioconductor* package *IWTomics* (see vignette_).
 
-.. _vignette: https://bioconductor.org/
+.. _vignette: https://bioconductor.org/packages/release/bioc/vignettes/IWTomics/inst/doc/IWTomics.pdf
   </help>
 
   <citations>

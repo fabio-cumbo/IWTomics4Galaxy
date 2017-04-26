@@ -53,16 +53,12 @@
   </command>
 
   <inputs>
-    <help>
-    ...
-    </help>
-
     <!-- RData -->
-    <param format="rdata" name="rdata" type="data" label="Select IWTomicsData object" />
+    <param format="rdata" name="rdata" type="data" label="Select IWTomicsData object" help="File created by 'IWTomics Load Smooth and Plot'" />
     <!-- region IDs -->
-    <param format="tabular" name="regionids" type="data" label="Select region dataset IDs" />
+    <param format="tabular" name="regionids" type="data" label="Select region dataset IDs" help="File created by 'IWTomics Load Smooth and Plot'" />
     <!-- feature IDs -->
-    <param format="tabular" name="featureids" type="data" label="Select feature IDs" />
+    <param format="tabular" name="featureids" type="data" label="Select feature IDs" help="File created by 'IWTomics Load Smooth and Plot'" />
 
     <!-- repeat region ids -->
     <section name="regionssection" title="Two-sample test" expanded="True" help="IDs of the region datasets to be tested.">
@@ -201,7 +197,7 @@ This Galaxy tool has been developed by Fabio Cumbo (Third University of Rome, It
 It implements a simplified version of the function *IWTomicsTest*, *plotTest* and *plotSummary* for *IWTomicsData* objects. 
 The complete version can be found in the *R/Bioconductor* package *IWTomics* (see vignette_).
 
-.. _vignette: https://bioconductor.org/
+.. _vignette: https://bioconductor.org/packages/release/bioc/vignettes/IWTomics/inst/doc/IWTomics.pdf
   </help>
 
   <citations>

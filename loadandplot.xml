@@ -74,13 +74,13 @@
   <inputs>
     <!-- regions -->
     <param format="tabular" name="regions" type="data" label="Select region files" multiple="true" help="" />
-    <repeat name="regionsheaderrepeat" title="Header file for regions (optional)" min="0" max="1" help="Tabular file. Column 1: names of the region files; Column 2: identifiers of the region datasets; Column 3: name of the region datasets to be used in the output.">
+    <repeat name="regionsheaderrepeat" title="Header file for regions (optional)" min="0" max="1" help="Tabular file. Column 1: names of the region files; Column 2: unique identifiers of the region datasets (spaces and special characters are not allowed); Column 3: name of the region datasets to be used in the output.">
       <param format="tabular" name="regionsheader" type="data" label="Select header file" />
     </repeat>
 
     <!-- features -->
     <param format="tabular" name="features" type="data" label="Select feature files" multiple="true" help="" />
-    <repeat name="featuresheaderrepeat" title="Header file for features (optional)" min="0" max="1" help="Tabular file. Column 1: names of the feature files; Column 2: identifiers of the features; Column 3: name of the features to be used in the output.">
+    <repeat name="featuresheaderrepeat" title="Header file for features (optional)" min="0" max="1" help="Tabular file. Column 1: names of the feature files; Column 2: unique identifiers of the features (spaces and special characters are not allowed); Column 3: name of the features to be used in the output.">
       <param format="tabular" name="featuresheader" type="data" label="Select header file" />
     </repeat>
 
@@ -270,7 +270,7 @@ This Galaxy tool has been developed by Fabio Cumbo (Third University of Rome, It
 It implements a simplified version of the methods *smooth* and *plot* for *IWTomicsData* objects. 
 The complete version can be found in the *R/Bioconductor* package *IWTomics* (see vignette_).
 
-.. _vignette: https://bioconductor.org/
+.. _vignette: https://bioconductor.org/packages/release/bioc/vignettes/IWTomics/inst/doc/IWTomics.pdf
   </help>
 
   <citations>
