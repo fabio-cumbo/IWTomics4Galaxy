@@ -6,6 +6,8 @@
       
       #set region_paths = '"\\|"'.join( [ str( $r ) for $r in $regions ] )
       regionspaths="${region_paths}" 
+      #set region_galaxyids = '","'.join( [ str( $r.id ) for $r in $regions ] )
+      regionsgalaxyids="c(${region_galaxyids})" 
       #set region_names = '"\\|"'.join( [ str( $r.name ) for $r in $regions ] )
       regionsfilenames="${region_names}" 
       #set region_header = '"\\|"'.join( [ str( $rh.regionsheader ) for $rh in $regionsheaderrepeat ] )
@@ -15,6 +17,8 @@
 
       #set feature_paths = '"\\|"'.join( [ str( $f ) for $f in $features ] )
       featurespaths="${feature_paths}" 
+      #set feature_galaxyids = '","'.join( [ str( $f.id ) for $f in $features ] )
+      featuresgalaxyids="c(${feature_galaxyids})" 
       #set feature_names = '"\\|"'.join( [ str( $f.name ) for $f in $features ] )
       featuresfilenames="${feature_names}" 
       #set feature_header = '"\\|"'.join( [ str( $fh.featuresheader ) for $fh in $featuresheaderrepeat ] )
@@ -63,11 +67,13 @@
         #end if
       #end if
 
-      >& /dev/null
+      2> "${stackerr}"
 ]]>
     <!--
     to print the stack add the following line at the end of the command and enable the corresponding entry in output
     2> "${stackerr}"
+
+    >& /dev/null
     -->
   </command>
 
@@ -200,7 +206,7 @@
   </inputs>
 
   <outputs>
-    <!--<data format="txt" name="stackerr" label="iwtomics.loadandplot.stackerr.txt" from_work_dir="iwtomics.loadandplot.stackerr.txt" />-->
+    <data format="txt" name="stackerr" label="iwtomics.loadandplot.stackerr.txt" from_work_dir="iwtomics.loadandplot.stackerr.txt" />
     <data format="rdata" name="outrdata" label="${tool.name} on ${on_string}: IWTomicsData Object" from_work_dir="iwtomics.loadandplot.RData" />
     <data format="tabular" name="outregions" label="${tool.name} on ${on_string}: Region Dataset IDs" from_work_dir="iwtomics.loadandplot.regions.txt" />
     <data format="tabular" name="outfeatures" label="${tool.name} on ${on_string}: Feature IDs" from_work_dir="iwtomics.loadandplot.features.txt" />

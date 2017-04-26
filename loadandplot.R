@@ -1,6 +1,10 @@
 if (require("IWTomics",character.only = TRUE,quietly = FALSE)) {
   require(tools,quietly = FALSE)
   args=commandArgs(TRUE)
+
+  for (i in seq_along(args)) {
+    message(args[[i]])
+  }
   
   # get args names and values
   args_values=strsplit(args,'=')
@@ -30,8 +34,9 @@ if (require("IWTomics",character.only = TRUE,quietly = FALSE)) {
       stop(err)
     })
   }else{
-    id_regions=file_path_sans_ext(basename(regionspaths))
-    name_regions=file_path_sans_ext(unlist(strsplit(args_values$regionsfilenames,'\\|')))
+    eval(parse(text=args[[which(args_names=='regionsgalaxyids')]]))
+    id_regions=paste0('data_',regionsgalaxyids)
+    name_regions=paste0('data_',regionsgalaxyids)
   }
   featurespaths=unlist(strsplit(args_values$featurespaths,'\\|'))
   if("featuresheaderfile" %in% args_names){
@@ -51,8 +56,9 @@ if (require("IWTomics",character.only = TRUE,quietly = FALSE)) {
       stop(err)
     })
   }else{
-    id_features=file_path_sans_ext(basename(featurespaths))
-    name_features=file_path_sans_ext(unlist(strsplit(args_values$featuresfilenames,'\\|')))
+    eval(parse(text=args[[which(args_names=='featuresgalaxyids')]]))
+    id_features=paste0('data_',featuresgalaxyids)
+    name_features=paste0('data_',featuresgalaxyids)
   }
   # read parameters (from smoothing on)
   i_smoothing=which(args_names=='smoothing')
@@ -79,8 +85,11 @@ if (require("IWTomics",character.only = TRUE,quietly = FALSE)) {
       quit(save="no", status=36) # error, all windows in a feature files must have the same size
     }
     #error loading data
-    quit(save="no", status=30)
+
     stop(err)
+
+    quit(save="no", status=30)
+    
  })
   
   # smooth data
