@@ -1,0 +1,207 @@
+<tool id="plotwithscale" name="IWTomics Plot with Threshold" version="0.1.0">
+  <description>on Test Scale</description>
+  <command interpreter="Rscript">
+<![CDATA[
+    plotwithscale.R adjustedpvalue="${adjustedpvalue}" iwtomicsrespdf="${iwtomicsrespdf}" iwtomicssumpdf="${iwtomicssumpdf}" 
+      iwtomicsrdata="${rdata}"
+      iwtomicstests="${testids}" 
+      iwtomicsselectedfeatures="${featureids}" 
+
+      #set test_subset = '"\\|"'.join( [ str( $e.test ) for $e in $scalesection.thresholdontestscale ] )
+      test_subset="${test_subset}"
+      #set feature_subset = '"\\|"'.join( [ str( $e.feature ) for $e in $scalesection.thresholdontestscale ] )
+      feature_subset="${feature_subset}"
+      #set scale_subset = '","'.join( [ str( $e.scale ) for $e in $scalesection.thresholdontestscale ] )
+      scale_subset="c(${scale_subset})"
+
+      testalpha="${plotres.alpha}"
+      average="${plotres.average}" 
+      size="${plotres.size}" 
+      plottype="'${plotres.conditionalplottype.plottype}'" 
+      #if $plotres.conditionalplottype.plottype == 'boxplot':
+        #set probs = '","'.join( [ str( $p.prob ) for $p in $plotres.conditionalplottype.probabilitiessection.probabilities ] )
+        #if $probs != "":
+          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2},${probs})" 
+        #else:
+          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2})" 
+        #end if
+      #end if
+
+      groupby="'${plotsum.conditionalgroupby.groupby}'" 
+      #if $plotsum.conditionalgroupby.groupby == "test":
+        summaryalpha="${plotsum.conditionalgroupby.testalphaplot}"
+        only_significant="${plotsum.conditionalgroupby.testonlysig}"
+      #elif $plotsum.conditionalgroupby.groupby == "feature":
+        summaryalpha="${plotsum.conditionalgroupby.featurealphaplot}"
+        only_significant="${plotsum.conditionalgroupby.featureonlysig}"
+      #end if
+
+      >& /dev/null
+]]>
+    <!--
+    to print the stack add the following line at the end of the command and enable the corresponding entry in output
+    2> "${stackerr}"    
+    -->
+  </command>
+
+  <inputs>
+    <help>
+    ...
+    </help>
+
+    <!-- RData -->
+    <param format="rdata" name="rdata" type="data" label="Select IWTomicsData object with the test results" />
+    <!-- test IDs -->
+    <param format="tabular" name="testids" type="data" label="Select test IDs" />
+    <!-- feature IDs -->
+    <param format="tabular" name="featureids" type="data" label="Select feature IDs" />
+
+    <!-- repeat threshold on test scale -->
+    <section name="scalesection" title="Threshold on test scale" expanded="True" help="">
+      <repeat name="thresholdontestscale" title="Threshold on test scale" min="1">
+        <param name="test" type="data_column" data_ref="testids" numerical="False" label="Test ID" multiple="True" use_header_names="True" />
+        <param name="feature" type="data_column" data_ref="featureids" numerical="False" label="Feature ID" multiple="True" use_header_names="True" />
+        <param name="scale" type="integer" value="0" min="0" label="Scale" />
+      </repeat>
+    </section>
+
+    <!-- plot IWTomics results -->
+    <section name="plotres" title="Plot IWTomics test results" expanded="True">
+      <!-- alpha -->
+      <param name="alpha" size="3" type="float" value="0.05" min="0.0" max="1.0" label="Level of the test (alpha)" />
+      <!-- average -->
+      <param name="average" type="boolean" truevalue="TRUE" falsevalue="FALSE" checked="True" label="Plot the mean curves" />
+      <!-- average -->
+      <param name="size" type="boolean" truevalue="TRUE" falsevalue="FALSE" checked="True" label="Plot sample size in each position" />
+      <!-- conditional plot type -->
+      <conditional name="conditionalplottype">
+        <!-- plot type -->
+        <param name="plottype" type="select" label="Plot type">
+          <option value="boxplot">Pointwise quantile curves (boxplot)</option>
+          <option value="curves">Curves (aligned)</option>
+        </param>
+        <!-- conditional choice: plottype=boxplot -->
+        <when value="boxplot">
+          <section name="probabilitiessection" title="Probabilities" expanded="True" help="Probabilities corresponding to the quantile curves to be drawn.">
+            <param name="prob0" size="3" type="float" value="0.25" min="0.0" max="1.0" label="Probability" />
+            <param name="prob1" size="3" type="float" value="0.5" min="0.0" max="1.0" label="Probability" />
+            <param name="prob2" size="3" type="float" value="0.75" min="0.0" max="1.0" label="Probability" />
+            <repeat name="probabilities" title="Probabilities">
+              <param name="prob" size="3" type="float" value="0.5" min="0.0" max="1.0" label="Probability" />
+            </repeat>
+          </section>
+        </when>
+      </conditional>
+    </section>
+
+    <!-- summary plot -->
+    <section name="plotsum" title="Summary plot" expanded="True">
+      <!-- conditional group by -->
+      <conditional name="conditionalgroupby">
+        <!-- group by -->
+        <param name="groupby" type="select" label="Group by" help="How tests should be grouped.">
+          <option value="none">No plot</option>
+          <option value="test">Group by test</option>
+          <option value="feature">Group by feature</option>
+        </param>
+        <when value="test">
+          <param name="testalphaplot" size="3" type="float" value="0.05" min="0.0" max="1.0" label="Level of the test (alpha)" />
+          <param name="testonlysig" type="boolean" truevalue="TRUE" falsevalue="FALSE" label="Plot only significant tests" />
+        </when>
+        <when value="feature">
+          <param name="featurealphaplot" size="3" type="float" value="0.05" min="0.0" max="1.0" label="Level of the test (alpha)" />
+          <param name="featureonlysig" type="boolean" truevalue="TRUE" falsevalue="FALSE" label="Plot only significant tests" />
+        </when>
+      </conditional>
+    </section>
+  </inputs>
+
+  <outputs>
+    <!--<data format="txt" name="stackerr" label="iwtomics.testandplot.stackerr.txt" from_work_dir="iwtomics.testandplot.stackerr.txt" />-->
+    <data format="txt" name="adjustedpvalue" label="${tool.name} on ${on_string}: Adjusted p-value" from_work_dir="iwtomics.testandplot.adjustedpvalue.txt" />
+    <data format="pdf" name="iwtomicsrespdf" label="${tool.name} on ${on_string}: Plotted Test Results" from_work_dir="iwtomics.testandplot.iwtomicstestresults.pdf" />
+    <data format="pdf" name="iwtomicssumpdf" label="${tool.name} on ${on_string}: Summary Plot" from_work_dir="iwtomics.testandplot.summaryplot.pdf" />
+  </outputs>
+
+  <help>
+This tool statistically evaluates differences in genomic features between groups of regions along the genome. 
+In particular, it implements the Interval-Wise Testing for omics data, an extended version of the Interval-Wise 
+Testing for functional data presented in Pini and Vantini (2017). It allows to perform multiple two sample permutation 
+tests between pairs of region datasets, on several features. Moreover, it creates a graphical representation of the 
+Interval-Wise Testing results and an optional summary plot of the results. 
+
+This tool does not allow the user to select the scale of the test results to be used in the plots: 
+the maximum possible scale is used. To select the scale, use the tool *IWTomics Plot with Scale*. 
+
+-----
+
+**Input files**
+
+RData file with the IWTomicsData object, tabular files with region dataset IDs and feature IDs. 
+These files are created by the tool *IWTomics Load Smooth and Plot*. 
+
+-----
+
+**Output**
+
+The tool returns:
+
+1. TXT file with an adjusted p-value matrix for every test performed. Each matrix contains a p-value curve (row) for every scale considered in the test;
+2. PDF file with the plotted test results;
+3. PDF file with the summary plot;
+4. RData with the IWTomicsData object with the test results;
+5. Test identifiers;
+6. Feature identifiers.
+
+4-6 can be used as input of the tool *IWTomics Plot with Scale*
+
+-----
+
+.. class:: infomark
+
+**Notes**
+
+This Galaxy tool has been developed by Fabio Cumbo (Third University of Rome, Italy) and Marzia A. Cremona (The Pennsylvania State University, USA).
+
+It implements a simplified version of the function *IWTomicsTest*, *plotTest* and *plotSummary* for *IWTomicsData* objects. 
+The complete version can be found in the *R/Bioconductor* package *IWTomics* (see vignette_).
+
+.. _vignette: https://bioconductor.org/
+  </help>
+
+  <citations>
+    <citation type="bibtex">
+      @ARTICLE{
+               iwt-functional-data,
+               author = {A Pini and S. Vantini},
+               title = {Interval-Wise Testing for functional data},
+               journal = {Journal of Nonparametric Statistics},
+               year = {2017},
+               volume = {29},
+               number = {2},
+               pages = {407-424}
+      }
+    </citation>
+    <citation type="bibtex">
+      @MANUAL{
+               iwtomics,
+               author = {Cremona, Marzia A and Pini, Alessia and Chiaromonte, Francesca and Vantini, Simone},
+               title = {IWTomics: Interval-Wise Testing for Omics Data},
+               note = {R package version 0.99.12},
+               year = {2017}
+      }
+    </citation>
+  </citations>
+
+  <stdio>
+    <exit_code range="-1" source="both" level="fatal" description="Missing IWTomics package. Please be sure to have it installed before using this tool." />
+    <exit_code range="10" source="both" level="fatal" description="Wrong test ids." />
+    <exit_code range="20" source="both" level="fatal" description="Wrong feature ids." />
+    <exit_code range="30" source="both" level="fatal" description="Two scale thresholds selected for the same test and feature." />
+    <exit_code range="40" source="both" level="fatal" description="Scale threshold too high." />
+    <exit_code range="50" source="both" level="fatal" description="Group by 'test' but selected features with different resolution." />
+    <exit_code range="60" source="both" level="fatal" description="Summary plot error. Please try again." />
+    <regex match="Error" source="both" level="fatal" description="An error has occurred. Please try again." />
+  </stdio>
+
+</tool>
