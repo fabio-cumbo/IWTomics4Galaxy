@@ -1,4 +1,0 @@
-elem1.bed	elem1	Elements 1
-elem2.bed	elem2	Elements 2
-elem3.bed	elem3	Elements 3
-control.bed	control	Controls
