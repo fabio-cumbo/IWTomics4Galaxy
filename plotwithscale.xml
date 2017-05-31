@@ -1,11 +1,26 @@
-<tool id="plotwithscale" name="IWTomics Plot with Threshold" version="0.1.0">
+<tool id="plotwithscale" name="IWTomics Plot with Threshold" version="@VERSION@.0">
   <description>on Test Scale</description>
-  <command interpreter="Rscript">
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements" />
+  <stdio>
+    <exit_code range="-1" source="both" level="fatal" description="Missing IWTomics package. Please be sure to have it installed before using this tool." />
+    <exit_code range="10" source="both" level="fatal" description="Wrong test ids." />
+    <exit_code range="20" source="both" level="fatal" description="Wrong feature ids." />
+    <exit_code range="30" source="both" level="fatal" description="Two scale thresholds selected for the same test and feature." />
+    <exit_code range="40" source="both" level="fatal" description="Scale threshold too high." />
+    <exit_code range="50" source="both" level="fatal" description="Group by 'test' but selected features with different resolution." />
+    <exit_code range="60" source="both" level="fatal" description="Summary plot error. Please try again." />
+    <regex match="Error" source="both" level="fatal" description="An error has occurred. Please try again." />
+  </stdio>
+
+  <command>
 <![CDATA[
-    plotwithscale.R adjustedpvalue="${adjustedpvalue}" iwtomicsrespdf="${iwtomicsrespdf}" iwtomicssumpdf="${iwtomicssumpdf}" 
+    Rscript $__tool_directory__/plotwithscale.R adjustedpvalue="${adjustedpvalue}" iwtomicsrespdf="${iwtomicsrespdf}" iwtomicssumpdf="${iwtomicssumpdf}"
       iwtomicsrdata="${rdata}"
-      iwtomicstests="${testids}" 
-      iwtomicsselectedfeatures="${featureids}" 
+      iwtomicstests="${testids}"
+      iwtomicsselectedfeatures="${featureids}"
 
       #set test_subset = '"\\|"'.join( [ str( $e.test ) for $e in $scalesection.thresholdontestscale ] )
       test_subset="${test_subset}"
@@ -15,19 +30,19 @@
       scale_subset="c(${scale_subset})"
 
       testalpha="${plotres.alpha}"
-      average="${plotres.average}" 
-      size="${plotres.size}" 
-      plottype="'${plotres.conditionalplottype.plottype}'" 
+      average="${plotres.average}"
+      size="${plotres.size}"
+      plottype="'${plotres.conditionalplottype.plottype}'"
       #if $plotres.conditionalplottype.plottype == 'boxplot':
         #set probs = '","'.join( [ str( $p.prob ) for $p in $plotres.conditionalplottype.probabilitiessection.probabilities ] )
         #if $probs != "":
-          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2},${probs})" 
+          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2},${probs})"
         #else:
-          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2})" 
+          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2})"
         #end if
       #end if
 
-      groupby="'${plotsum.conditionalgroupby.groupby}'" 
+      groupby="'${plotsum.conditionalgroupby.groupby}'"
       #if $plotsum.conditionalgroupby.groupby == "test":
         summaryalpha="${plotsum.conditionalgroupby.testalphaplot}"
         only_significant="${plotsum.conditionalgroupby.testonlysig}"
@@ -40,7 +55,7 @@
 ]]>
     <!--
     to print the stack add the following line at the end of the command and enable the corresponding entry in output
-    2> "${stackerr}"    
+    2> "${stackerr}"
     -->
   </command>
 
@@ -124,16 +139,16 @@
   </outputs>
 
   <help>
-This tool allows to select the scale for the Interval-Wise Testing results. In particular, it returns the p-value curves 
-for the different tests performed at the selected scale, and it creates a graphical representation of the 
-Interval-Wise Testing results and a summary plot (optional) at the selected scale.  
+This tool allows to select the scale for the Interval-Wise Testing results. In particular, it returns the p-value curves
+for the different tests performed at the selected scale, and it creates a graphical representation of the
+Interval-Wise Testing results and a summary plot (optional) at the selected scale.
 
 -----
 
 **Input files**
 
-RData file with the IWTomicsData object with test results, tabular files with test IDs and feature IDs. 
-These files are created by the tool *IWTomics Test and Plot*. 
+RData file with the IWTomicsData object with test results, tabular files with test IDs and feature IDs.
+These files are created by the tool *IWTomics Test and Plot*.
 
 -----
 
@@ -153,7 +168,7 @@ The tool returns:
 
 This Galaxy tool has been developed by Fabio Cumbo (Third University of Rome, Italy) and Marzia A. Cremona (The Pennsylvania State University, USA).
 
-It implements a simplified version of the function *IWTomicsTest*, *plotTest* and *plotSummary* for *IWTomicsData* objects. 
+It implements a simplified version of the function *IWTomicsTest*, *plotTest* and *plotSummary* for *IWTomicsData* objects.
 The complete version can be found in the *R/Bioconductor* package *IWTomics* (see vignette_).
 
 .. _vignette: https://bioconductor.org/packages/release/bioc/vignettes/IWTomics/inst/doc/IWTomics.pdf
@@ -182,16 +197,5 @@ The complete version can be found in the *R/Bioconductor* package *IWTomics* (se
       }
     </citation>
   </citations>
-
-  <stdio>
-    <exit_code range="-1" source="both" level="fatal" description="Missing IWTomics package. Please be sure to have it installed before using this tool." />
-    <exit_code range="10" source="both" level="fatal" description="Wrong test ids." />
-    <exit_code range="20" source="both" level="fatal" description="Wrong feature ids." />
-    <exit_code range="30" source="both" level="fatal" description="Two scale thresholds selected for the same test and feature." />
-    <exit_code range="40" source="both" level="fatal" description="Scale threshold too high." />
-    <exit_code range="50" source="both" level="fatal" description="Group by 'test' but selected features with different resolution." />
-    <exit_code range="60" source="both" level="fatal" description="Summary plot error. Please try again." />
-    <regex match="Error" source="both" level="fatal" description="An error has occurred. Please try again." />
-  </stdio>
 
 </tool>

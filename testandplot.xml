@@ -1,10 +1,23 @@
-<tool id="testandplot" name="IWTomics Test" version="0.1.0">
+<tool id="testandplot" name="IWTomics Test" version="@VERSION@.0">
   <description>and Plot</description>
-  <command interpreter="Rscript">
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements" />
+  <stdio>
+    <exit_code range="-1" source="both" level="fatal" description="Missing IWTomics package. Please be sure to have it installed before using this tool." />
+    <exit_code range="10" source="both" level="fatal" description="Wrong region ids." />
+    <exit_code range="20" source="both" level="fatal" description="Wrong feature ids." />
+    <exit_code range="30" source="both" level="fatal" description="Same test repeated multiple times." />
+    <exit_code range="40" source="both" level="fatal" description="Testing error." />
+    <regex match="Error" source="both" level="fatal" description="An error has occurred. Please try again." />
+  </stdio>
+
+  <command>
 <![CDATA[
-    testandplot.R adjustedpvaluematrix="${adjustedpvaluematrix}" iwtomicsrespdf="${iwtomicsrespdf}" iwtomicssumpdf="${iwtomicssumpdf}" iwtomicsrdata="${iwtomicsrdata}" iwtomicstests="${iwtomicstests}" iwtomicsselectedfeatures="${iwtomicsselectedfeatures}" 
-      regionids="${regionids}" 
-      featureids="${featureids}" 
+    Rscript $__tool_directory__/testandplot.R adjustedpvaluematrix="${adjustedpvaluematrix}" iwtomicsrespdf="${iwtomicsrespdf}" iwtomicssumpdf="${iwtomicssumpdf}" iwtomicsrdata="${iwtomicsrdata}" iwtomicstests="${iwtomicstests}" iwtomicsselectedfeatures="${iwtomicsselectedfeatures}"
+      regionids="${regionids}"
+      featureids="${featureids}"
       rdatafile="${rdata}"
 
       #set region1 = '","'.join( [ str( $r.region0 ) for $r in $regionssection.regions ] )
@@ -13,29 +26,29 @@
       region2="c(${region2})"
 
       features_subset="c(${featureslist})"
-      
+
       statistics="'${conditionalstatistics.statistics}'"
       #if $conditionalstatistics.statistics == "quantile":
         #set probabilities = '","'.join( [ str( $p.qprob ) for $p in $conditionalstatistics.quantilesection.qprobabilities ] )
-        testprobs="c(${probabilities})" 
+        testprobs="c(${probabilities})"
       #end if
 
       B="${permutations}"
 
       testalpha="${plotres.alpha}"
-      average="${plotres.average}" 
-      size="${plotres.size}" 
-      plottype="'${plotres.conditionalplottype.plottype}'" 
+      average="${plotres.average}"
+      size="${plotres.size}"
+      plottype="'${plotres.conditionalplottype.plottype}'"
       #if $plotres.conditionalplottype.plottype == 'boxplot':
         #set probs = '","'.join( [ str( $p.prob ) for $p in $plotres.conditionalplottype.probabilitiessection.probabilities ] )
         #if $probs != "":
-          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2},${probs})" 
+          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2},${probs})"
         #else:
-          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2})" 
+          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2})"
         #end if
       #end if
 
-      groupby="'${plotsum.conditionalgroupby.groupby}'" 
+      groupby="'${plotsum.conditionalgroupby.groupby}'"
       #if $plotsum.conditionalgroupby.groupby == "test":
         summaryalpha="${plotsum.conditionalgroupby.testalphaplot}"
         only_significant="${plotsum.conditionalgroupby.testonlysig}"
@@ -155,20 +168,20 @@
   </outputs>
 
   <help>
-This tool statistically evaluates differences in genomic features between groups of regions along the genome. 
-In particular, it implements the Interval-Wise Testing for omics data, an extended version of the Interval-Wise 
-Testing for functional data presented in Pini and Vantini (2017). It allows to perform multiple two sample permutation 
+This tool statistically evaluates differences in genomic features between groups of regions along the genome.
+In particular, it implements the Interval-Wise Testing for omics data, an extended version of the Interval-Wise
+Testing for functional data presented in Pini and Vantini (2017). It allows to perform multiple two sample permutation
 tests between pairs of region datasets, on several features. It returns the adjusted p-value curves for every test
-and all possible scales. Moreover, it creates a graphical representation of the Interval-Wise Testing results 
-and a summary plot (optional) with p-values at the maximum scale. The tool *IWTomics Plot with Threshold on Test Scale* 
+and all possible scales. Moreover, it creates a graphical representation of the Interval-Wise Testing results
+and a summary plot (optional) with p-values at the maximum scale. The tool *IWTomics Plot with Threshold on Test Scale*
 permits to select the scale to be used in the plots.
 
 -----
 
 **Input files**
 
-RData file with the IWTomicsData object, tabular files with region dataset IDs and feature IDs. 
-These files are created by the tool *IWTomics Load Smooth and Plot*. 
+RData file with the IWTomicsData object, tabular files with region dataset IDs and feature IDs.
+These files are created by the tool *IWTomics Load Smooth and Plot*.
 
 -----
 
@@ -193,7 +206,7 @@ The tool returns:
 
 This Galaxy tool has been developed by Fabio Cumbo (Third University of Rome, Italy) and Marzia A. Cremona (The Pennsylvania State University, USA).
 
-It implements a simplified version of the function *IWTomicsTest*, *plotTest* and *plotSummary* for *IWTomicsData* objects. 
+It implements a simplified version of the function *IWTomicsTest*, *plotTest* and *plotSummary* for *IWTomicsData* objects.
 The complete version can be found in the *R/Bioconductor* package *IWTomics* (see vignette_).
 
 .. _vignette: https://bioconductor.org/packages/release/bioc/vignettes/IWTomics/inst/doc/IWTomics.pdf
@@ -222,14 +235,5 @@ The complete version can be found in the *R/Bioconductor* package *IWTomics* (se
       }
     </citation>
   </citations>
-
-  <stdio>
-    <exit_code range="-1" source="both" level="fatal" description="Missing IWTomics package. Please be sure to have it installed before using this tool." />
-    <exit_code range="10" source="both" level="fatal" description="Wrong region ids." />
-    <exit_code range="20" source="both" level="fatal" description="Wrong feature ids." />
-    <exit_code range="30" source="both" level="fatal" description="Same test repeated multiple times." />
-    <exit_code range="40" source="both" level="fatal" description="Testing error." />
-    <regex match="Error" source="both" level="fatal" description="An error has occurred. Please try again." />
-  </stdio>
 
 </tool>
