@@ -230,7 +230,7 @@ The complete version can be found in the *R/Bioconductor* package *IWTomics* (se
                iwtomics,
                author = {Cremona, Marzia A and Pini, Alessia and Chiaromonte, Francesca and Vantini, Simone},
                title = {IWTomics: Interval-Wise Testing for Omics Data},
-               note = {R package version 0.99.12},
+               note = {R package version 1.0.0},
                year = {2017}
       }
     </citation>

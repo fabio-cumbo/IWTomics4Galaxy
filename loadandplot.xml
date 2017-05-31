@@ -290,12 +290,20 @@ The tool returns:
 
 **Notes**
 
-This Galaxy tool has been developed by Fabio Cumbo (Third University of Rome, Italy) and Marzia A. Cremona (The Pennsylvania State University, USA).
+This Galaxy tool has been developed by Fabio Cumbo (Third University of Rome, Italy - fabio.cumbo@iasi.cnr.it) and Marzia A. Cremona (The Pennsylvania State University, USA - mac78@psu.edu).
 
 It implements a simplified version of the methods *smooth* and *plot* for *IWTomicsData* objects.
 The complete version can be found in the *R/Bioconductor* package *IWTomics* (see vignette_).
 
 .. _vignette: https://bioconductor.org/packages/release/bioc/vignettes/IWTomics/inst/doc/IWTomics.pdf
+
+Example data can be found at:
+
+1. Simulated_data_
+2. ETn_data_
+
+.. _Simulated_data: https://usegalaxy.org/u/fabio-cumbo/h/iwtomics-example
+.. _ETn_data: https://usegalaxy.org/u/fabio-cumbo/h/iwtomics-etn-example
   </help>
 
   <citations>
@@ -316,7 +324,7 @@ The complete version can be found in the *R/Bioconductor* package *IWTomics* (se
                iwtomics,
                author = {Cremona, Marzia A and Pini, Alessia and Chiaromonte, Francesca and Vantini, Simone},
                title = {IWTomics: Interval-Wise Testing for Omics Data},
-               note = {R package version 0.99.12},
+               note = {R package version 1.0.0},
                year = {2017}
       }
     </citation>

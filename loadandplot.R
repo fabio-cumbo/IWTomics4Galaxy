@@ -1,10 +1,5 @@
 if (require("IWTomics",character.only = TRUE,quietly = FALSE)) {
-  require(tools,quietly = FALSE)
   args=commandArgs(TRUE)
-
-  for (i in seq_along(args)) {
-    message(args[[i]])
-  }
   
   # get args names and values
   args_values=strsplit(args,'=')
