@@ -1,69 +1,90 @@
-<tool id="loadandplot" name="IWTomics Load" version="0.1.0">
+<tool id="loadandplot" name="IWTomics Load" version="@VERSION@.0">
   <description>Smooth and Plot</description>
-  <command interpreter="Rscript">
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements" />
+  <stdio>
+    <exit_code range="255" source="both" level="fatal" description="Missing IWTomics package. Please be sure to have it installed before using this tool." />
+    <exit_code range="10" source="both" level="fatal" description="An error has occurred reading the header file for regions. Please try again." />
+    <exit_code range="11" source="both" level="fatal" description="Not all region files are present in the first column of header file for regions." />
+    <exit_code range="20" source="both" level="fatal" description="An error has occurred reading the header file for features. Please try again." />
+    <exit_code range="21" source="both" level="fatal" description="Not all feature files are present in the first column of header file for features." />
+    <exit_code range="30" source="both" level="fatal" description="An error has occurred reading the data. Please try again." />
+    <exit_code range="31" source="both" level="fatal" description="Not enough columns in input file." />
+    <exit_code range="32" source="both" level="fatal" description="Duplicated regions in region file." />
+    <exit_code range="33" source="both" level="fatal" description="Duplicated windows in feature file." />
+    <exit_code range="34" source="both" level="fatal" description="Overlapping windows in feature file." />
+    <exit_code range="35" source="both" level="fatal" description="Windows in feature files do not cover all regions in region files." />
+    <exit_code range="36" source="both" level="fatal" description="All windows in a feature file must have the same size." />
+    <exit_code range="40" source="both" level="fatal" description="An error has occurred smoothing the data. Please try again." />
+    <regex match="Error" source="both" level="fatal" description="An error has occurred. Please try again." />
+  </stdio>
+
+  <command>
 <![CDATA[
-    loadandplot.R outrdata="${outrdata}" outregions="${outregions}" outfeatures="${outfeatures}" outpdf="${outpdf}" 
-      
+    Rscript $__tool_directory__/loadandplot.R outrdata="${outrdata}" outregions="${outregions}" outfeatures="${outfeatures}" outpdf="${outpdf}"
+
       #set region_paths = '"\\|"'.join( [ str( $r ) for $r in $regions ] )
-      regionspaths="${region_paths}" 
+      regionspaths="${region_paths}"
       #set region_galaxyids = '","'.join( [ str( $r.hid ) for $r in $regions ] )
-      regionsgalaxyids="c(${region_galaxyids})" 
+      regionsgalaxyids="c(${region_galaxyids})"
       #set region_names = '"\\|"'.join( [ str( $r.name ) for $r in $regions ] )
-      regionsfilenames="${region_names}" 
+      regionsfilenames="${region_names}"
       #set region_header = '"\\|"'.join( [ str( $rh.regionsheader ) for $rh in $regionsheaderrepeat ] )
       #if $region_header != "":
-        regionsheaderfile="${region_header}" 
+        regionsheaderfile="${region_header}"
       #end if
 
       #set feature_paths = '"\\|"'.join( [ str( $f ) for $f in $features ] )
-      featurespaths="${feature_paths}" 
+      featurespaths="${feature_paths}"
       #set feature_galaxyids = '","'.join( [ str( $f.hid ) for $f in $features ] )
-      featuresgalaxyids="c(${feature_galaxyids})" 
+      featuresgalaxyids="c(${feature_galaxyids})"
       #set feature_names = '"\\|"'.join( [ str( $f.name ) for $f in $features ] )
-      featuresfilenames="${feature_names}" 
+      featuresfilenames="${feature_names}"
       #set feature_header = '"\\|"'.join( [ str( $fh.featuresheader ) for $fh in $featuresheaderrepeat ] )
       #if $feature_header != "":
-        featuresheaderfile="${feature_header}" 
+        featuresheaderfile="${feature_header}"
       #end if
 
-      smoothing="'${conditionaltype.smoothing}'" 
-      start.are.0based="${zerobased}" 
+      smoothing="'${conditionaltype.smoothing}'"
+      start.are.0based="${zerobased}"
       #if $conditionaltype.smoothing == 'no':
-        alignment="'${conditionaltype.alignment}'" 
+        alignment="'${conditionaltype.alignment}'"
       #elif $conditionaltype.smoothing == 'locpoly':
-        alignment="'${conditionaltype.locpolyconditionalscale.alignment}'" 
+        alignment="'${conditionaltype.locpolyconditionalscale.alignment}'"
         #if $conditionaltype.locpolyconditionalscale.alignment == 'scale':
-          scale="${conditionaltype.locpolyconditionalscale.scalegrid}" 
+          scale="${conditionaltype.locpolyconditionalscale.scalegrid}"
         #end if
-        bandwidth="${conditionaltype.locpolybandwidth}" 
-        degree="${conditionaltype.locpolydegree}" 
-        fill_gaps="${conditionaltype.fillgaps}" 
+        bandwidth="${conditionaltype.locpolybandwidth}"
+        degree="${conditionaltype.locpolydegree}"
+        fill_gaps="${conditionaltype.fillgaps}"
       #elif $conditionaltype.smoothing == 'kernel':
-        alignment="'${conditionaltype.kernelconditionalscale.alignment}'" 
+        alignment="'${conditionaltype.kernelconditionalscale.alignment}'"
         #if $conditionaltype.kernelconditionalscale.alignment == 'scale':
-          scale="${conditionaltype.kernelconditionalscale.scalegrid}" 
+          scale="${conditionaltype.kernelconditionalscale.scalegrid}"
         #end if
-        bandwidth="${conditionaltype.kernelbandwidth}" 
-        fill_gaps="${conditionaltype.fillgaps}" 
+        bandwidth="${conditionaltype.kernelbandwidth}"
+        fill_gaps="${conditionaltype.fillgaps}"
       #elif $conditionaltype.smoothing == 'splines':
-        alignment="'${conditionaltype.splinesconditionalscale.alignment}'" 
+        alignment="'${conditionaltype.splinesconditionalscale.alignment}'"
         #if $conditionaltype.splinesconditionalscale.alignment == 'scale':
-          scale="${conditionaltype.splinesconditionalscale.scalegrid}" 
+          scale="${conditionaltype.splinesconditionalscale.scalegrid}"
         #end if
-        degree="${conditionaltype.splinesdegree}" 
-        dist_knots="${conditionaltype.splinesdistknots}" 
-        fill_gaps="${conditionaltype.fillgaps}" 
+        degree="${conditionaltype.splinesdegree}"
+        dist_knots="${conditionaltype.splinesdistknots}"
+        fill_gaps="${conditionaltype.fillgaps}"
       #end if
-      
-      average="${plotres.average}" 
-      size="${plotres.size}" 
-      plottype="'${plotres.conditionalplottype.plottype}'" 
+
+      average="${plotres.average}"
+      size="${plotres.size}"
+      plottype="'${plotres.conditionalplottype.plottype}'"
       #if $plotres.conditionalplottype.plottype == 'boxplot':
         #set probs = '","'.join( [ str( $p.prob ) for $p in $plotres.conditionalplottype.probabilitiessection.probabilities ] )
         #if $probs != "":
-          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2},${probs})" 
+          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2},${probs})"
         #else:
-          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2})" 
+          probs="c(${plotres.conditionalplottype.probabilitiessection.prob0},${plotres.conditionalplottype.probabilitiessection.prob1},${plotres.conditionalplottype.probabilitiessection.prob2})"
         #end if
       #end if
 
@@ -169,12 +190,12 @@
 
         <param name="splinesdegree" type="integer" value="3" min="0" label="Degree of B-splines" help="" />
         <param name="splinesdistknots" type="integer" value="10" min="2" label="Distance between nodes (approximate)" help="" />
-        
+
         <!-- fill gaps -->
         <param name="fillgaps" type="boolean" truevalue="TRUE" falsevalue="FALSE" checked="True" label="Use smoothing to fill gaps (NA measurements)" help="" />
       </when>
     </conditional>
-    
+
     <!-- plot IWTomics results -->
     <section name="plotres" title="Plot data" expanded="True">
       <!-- average -->
@@ -212,7 +233,7 @@
   </outputs>
 
   <help>
-This tool imports a collection of genomic region datasets, and associates to each region 
+This tool imports a collection of genomic region datasets, and associates to each region
 multiple genomic feature measurements. It allows to align the regions in multiple ways
 (center, left, right or scale alignment), to smooth the feature curves (possibly filling gaps in the
 measurements) and to create a graphical representation of the feature measurements in each
@@ -271,7 +292,7 @@ The tool returns:
 
 This Galaxy tool has been developed by Fabio Cumbo (Third University of Rome, Italy) and Marzia A. Cremona (The Pennsylvania State University, USA).
 
-It implements a simplified version of the methods *smooth* and *plot* for *IWTomicsData* objects. 
+It implements a simplified version of the methods *smooth* and *plot* for *IWTomicsData* objects.
 The complete version can be found in the *R/Bioconductor* package *IWTomics* (see vignette_).
 
 .. _vignette: https://bioconductor.org/packages/release/bioc/vignettes/IWTomics/inst/doc/IWTomics.pdf
@@ -300,22 +321,5 @@ The complete version can be found in the *R/Bioconductor* package *IWTomics* (se
       }
     </citation>
   </citations>
-
-  <stdio>
-    <exit_code range="255" source="both" level="fatal" description="Missing IWTomics package. Please be sure to have it installed before using this tool." />
-    <exit_code range="10" source="both" level="fatal" description="An error has occurred reading the header file for regions. Please try again." />
-    <exit_code range="11" source="both" level="fatal" description="Not all region files are present in the first column of header file for regions." />
-    <exit_code range="20" source="both" level="fatal" description="An error has occurred reading the header file for features. Please try again." />
-    <exit_code range="21" source="both" level="fatal" description="Not all feature files are present in the first column of header file for features." />
-    <exit_code range="30" source="both" level="fatal" description="An error has occurred reading the data. Please try again." />
-    <exit_code range="31" source="both" level="fatal" description="Not enough columns in input file." />
-    <exit_code range="32" source="both" level="fatal" description="Duplicated regions in region file." />
-    <exit_code range="33" source="both" level="fatal" description="Duplicated windows in feature file." />
-    <exit_code range="34" source="both" level="fatal" description="Overlapping windows in feature file." />
-    <exit_code range="35" source="both" level="fatal" description="Windows in feature files do not cover all regions in region files." />
-    <exit_code range="36" source="both" level="fatal" description="All windows in a feature file must have the same size." />
-    <exit_code range="40" source="both" level="fatal" description="An error has occurred smoothing the data. Please try again." />
-    <regex match="Error" source="both" level="fatal" description="An error has occurred. Please try again." />
-  </stdio>
 
 </tool>
