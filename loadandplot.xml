@@ -1,4 +1,4 @@
-<tool id="loadandplot" name="IWTomics Load" version="@VERSION@.0">
+<tool id="iwtomics_loadandplot" name="IWTomics Load" version="@VERSION@.0">
   <description>Smooth and Plot</description>
   <macros>
     <import>macros.xml</import>
