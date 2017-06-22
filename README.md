@@ -4,7 +4,7 @@ Implementation of the [Interval-Wise Testing (IWT) for omics data](https://bioco
 
 ## Tool dependencies
 - R 3.3.1
-- [bioconductor-iwtomics](https://github.com/bioconda/bioconda-recipes/tree/master/recipes/bioconductor-iwtomics) 1.0.0 BioConda package
+- [bioconductor-iwtomics 1.0.0](https://github.com/bioconda/bioconda-recipes/tree/master/recipes/bioconductor-iwtomics) BioConda package
 
 ## Authors
 - Fabio Cumbo - fabio.cumbo@iasi.cnr.it
