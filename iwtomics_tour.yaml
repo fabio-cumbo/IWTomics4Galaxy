@@ -1,0 +1,168 @@
+id: iwtomics_galaxy
+name: IWTomics Tour
+description: An interactive tour for the Interval-Wise Testing for omics data (IWTomics) tool for Galaxy
+title_default: "Welcome to IWTomics"
+
+steps:
+    - title: "Welcome to IWTomics"
+      content: ""
+      backdrop: true
+
+    # load ETn example
+
+    - title: "Upload your data"
+      element: ".upload-button"
+      intro: ""
+      position: "right"
+      postclick:
+        - ".upload-button"
+        - "#btn-new"
+    
+    - title: "Upload your data"
+      element: ".upload-text-content:first"
+      intro: "ETn example from GitHub repo"
+      position: "top"
+      textinsert: |
+        https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/DESCRIPTION.txt
+        https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/ETn_fixed.bed
+        https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/Control.bed
+        https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/regions_header.txt
+        https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/Recombination_hotspots.txt
+        https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/features_header.txt
+
+    - title: "Start the upload"
+      element: "#btn-start"
+      intro: "Upload the data into your Galaxy history."
+      position: "top"
+      postclick:
+        - "#btn-start"
+
+    - title: "Close upload/download manager"
+      element: "#btn-close"
+      intro: "Close the upload manager with this button or with a click outside of the manager window."
+      position: "top"
+      postclick:
+        - "#btn-close"
+
+    - title: "Description"
+      element: "#current-history-panel .list-item:eq(5)"
+      intro: "DESCRIPTION.txt"
+      position: "left"
+
+    - title: "ETn fixed BED"
+      element: "#current-history-panel .list-item:eq(4)"
+      intro: "ETn_fixed.bed.txt"
+      position: "left"
+
+    - title: "Control"
+      element: "#current-history-panel .list-item:eq(3)"
+      intro: "Control.bed"
+      position: "left"
+    
+    - title: "Regions Header"
+      element: "#current-history-panel .list-item:eq(2)"
+      intro: "regions.header"
+      position: "left"
+
+    - title: "Recombination Hotspots"
+      element: "#current-history-panel .list-item:eq(1)"
+      intro: "Recombination_hotspots.txt"
+      position: "left"
+
+    - title: "Features Header"
+      element: "#current-history-panel .list-item:eq(0)"
+      intro: "features.header"
+      position: "left"
+
+    - title: "Search for the IWTomics suite"
+      element: "#tool-search-query"
+      intro: "search IWTomics"
+      position: "right"
+      textinsert: 'iwtomics'
+
+    # start Load and Plot tool
+
+    - title: "Select Load and Plot tool"
+      element: 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_loadandplot%2Fiwtomics_loadandplot%2F1.0.0.0"]'
+      intro: "select Load and Plot tool"
+      position: "right"
+      postclick:
+        - 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_loadandplot%2Fiwtomics_loadandplot%2F1.0.0.0"]'
+
+    - title: "Load and Plot popup"
+      content: "Load and Plot description"
+      backdrop: true
+
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="regions"]'
+      intro: "select regions"
+      position: "bottom"
+      postclick:
+        - 'div[tour_id$="regions"] > div[class$="ui-form-field"] > div[class$="ui-select-content"] > div[class$="ui-select-multiple ui-select"] > select[class$="select"] > option:eq(3)'
+        - 'div[tour_id$="regions"] > div[class$="ui-form-field"] > div[class$="ui-select-content"] > div[class$="ui-select-multiple ui-select"] > select[class$="select"] > option:eq(4)'
+    
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="regionsheader"]'
+      intro: "regions header"
+      position: "bottom"
+      postclick:
+        - 'div[tour_id$="regionsheader"] ul[role$="listbox"] li:eq(3)' # oppure 2 se 'Nothing selected' non conta
+
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="features"]'
+      intro: "features"
+      position: "bottom"
+      postclick:
+        - 'div[tour_id$="features"] > div[class$="ui-form-field"] > div[class$="ui-select-content"] > div[class$="ui-select-multiple ui-select"] > select[class$="select"] > option:eq(1)'
+
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="featuresheader"]'
+      intro: "features header"
+      position: "top"
+      postclick:
+        - 'div[tour_id$="featuresheader"] ul[role$="listbox"] li:eq(1)' # oppure 0 se 'Nothing selected' non conta
+
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="zerobased"]'
+      intro: "start position"
+      position: "top"
+    
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="conditionaltype|smoothing"]'
+      intro: "smoothing"
+      position: "top"
+
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="conditionaltype|alignment"]'
+      intro: "alignment"
+      position: "top"
+
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="plotres|average"]'
+      intro: "plot the mean curves"
+      position: "top"
+    
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="plotres|size"]'
+      intro: "plot sample size in each position"
+      position: "top"
+
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="plotres|conditionalplottype|plottype"]'
+      intro: "plot type"
+      position: "top"
+
+    - title: "Select Load and Plot inputs and parameters"
+      element: 'div[tour_id$="plotres|conditionalplottype|probabilitiessection|prob0"]'
+      intro: "probabilities"
+      position: "top"
+
+    - title: "Execute Load and Plot tool"
+      element: '#execute'
+      intro: "execute Load and Plot tool"
+      position: "right"
+      postclick:
+        - '#execute'
+    
+    # start Test and Plot tool
+    
