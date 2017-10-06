@@ -207,10 +207,49 @@ steps:
       position: "right"
       postclick:
         - '#execute'
+
+    - title: "Load and Plot executed"
+      content: "wait for the generation of the output files, than click next."
+      backdrop: true
+
+    - title: "IWTomicsData Object"
+      element: "#current-history-panel .list-item:eq(3)"
+      intro: "IWTomicsData Object"
+      position: "left"
+    
+    - title: "Region Dataset IDs"
+      element: "#current-history-panel .list-item:eq(2)"
+      intro: "Region Dataset IDs"
+      position: "left"
+
+    - title: "Feature IDs"
+      element: "#current-history-panel .list-item:eq(1)"
+      intro: "Feature IDs"
+      position: "left"
+
+    - title: "Plotted Data"
+      element: "#current-history-panel .list-item:eq(0)"
+      intro: "Plotted Data"
+      position: "left"
+    
+    - title: "Load and Plot completed"
+      content: "The Load and Plot tool has completed. Close the tour or continue to the next tool Test and Plot"
+      backdrop: true
     
     ##############################
     ## start Test and Plot tool ##
     ##############################
+
+    - title: "Select Test and Plot tool"
+      element: 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_testandplot%2Fiwtomics_testandplot%2F1.0.0.0"]'
+      intro: "select Load and Plot tool"
+      position: "right"
+      postclick:
+        - 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_testandplot%2Fiwtomics_testandplot%2F1.0.0.0"]'
+
+    - title: "Test and Plot"
+      content: "Test and Plot tool description"
+      backdrop: true
 
     
     
