@@ -242,7 +242,7 @@ steps:
 
     - title: "Select Test and Plot tool"
       element: 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_testandplot%2Fiwtomics_testandplot%2F1.0.0.0"]'
-      intro: "select Load and Plot tool"
+      intro: "select Test and Plot tool"
       position: "right"
       postclick:
         - 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_testandplot%2Fiwtomics_testandplot%2F1.0.0.0"]'
@@ -327,4 +327,141 @@ steps:
       content: "wait for the generation of the output files, than click next."
       backdrop: true
 
+    - title: "Adjusted p-value Matrix"
+      element: "#current-history-panel .list-item:eq(5)"
+      intro: "Adjusted p-value Matrix"
+      position: "left"
+
+    - title: "Plotted Test Results"
+      element: "#current-history-panel .list-item:eq(4)"
+      intro: "Plotted Test Results"
+      position: "left"
+
+    - title: "Summary Plot"
+      element: "#current-history-panel .list-item:eq(3)"
+      intro: "Summary Plot"
+      position: "left"
     
+    - title: "IWTomicsData Object with Test Results"
+      element: "#current-history-panel .list-item:eq(2)"
+      intro: "IWTomicsData Object with Test Results"
+      position: "left"
+
+    - title: "Test IDs"
+      element: "#current-history-panel .list-item:eq(1)"
+      intro: "Test IDs"
+      position: "left"
+
+    - title: "Feature IDs"
+      element: "#current-history-panel .list-item:eq(0)"
+      intro: "Feature IDs"
+      position: "left"
+
+    - title: "Test and Plot completed"
+      content: "The Test and Plot tool has completed. Close the tour or continue to the next tool Plot with Threshold on Test Scale"
+      backdrop: true
+
+    #############################################
+    ## start Plot with Threshold on Test Scale ##
+    #############################################
+
+    - title: "Select Plot with Threshold on Test Scale tool"
+      element: 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_plotwithscale%2Fiwtomics_plotwithscale%2F1.0.0.0"]'
+      intro: "select Plot with Threshold on Test Scale tool"
+      position: "right"
+      postclick:
+        - 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_plotwithscale%2Fiwtomics_plotwithscale%2F1.0.0.0"]'
+
+    - title: "Plot with Threshold on Test Scale"
+      content: "Plot with Threshold on Test Scale tool description"
+      backdrop: true
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="rdata"]'
+      intro: "select rdata"
+      position: "bottom"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="testids"]'
+      intro: "select test ids"
+      position: "bottom"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="featureids"]'
+      intro: "select feature ids"
+      position: "bottom"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="scalesection|thresholdontestscale_0|test"]'
+      intro: "select threshold on test scale: test id"
+      position: "top"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="scalesection|thresholdontestscale_0|feature"]'
+      intro: "select threshold on test scale: feature id"
+      position: "top"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="scalesection|thresholdontestscale_0|scale"]'
+      intro: "select threshold on test scale: scale"
+      position: "top"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="plotres|alpha"]'
+      intro: "select level of the test: alpha"
+      position: "top"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="plotres|average"]'
+      intro: "plot the mean curves"
+      position: "top"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="plotres|size"]'
+      intro: "plot sample size in each position"
+      position: "top"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="plotres|conditionalplottype|plottype"]'
+      intro: "select plot type"
+      position: "top"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="plotres|conditionalplottype|probabilitiessection|prob0"]'
+      intro: "select probabilities"
+      position: "top"
+
+    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+      element: 'div[tour_id$="plotsum|conditionalgroupby|groupby"]'
+      intro: "summary plot"
+      position: "top"
+
+    - title: "Execute Plot with Threshold on Test Scale tool"
+      element: '#execute'
+      intro: "execute Plot with Threshold on Test Scale tool"
+      position: "right"
+      postclick:
+        - '#execute'
+
+    - title: "Plot with Threshold on Test Scale executed"
+      content: "wait for the generation of the output files, than click next."
+      backdrop: true
+
+    - title: "Adjusted p-value"
+      element: "#current-history-panel .list-item:eq(2)"
+      intro: "Adjusted p-value"
+      position: "left"
+
+    - title: "Plotted Test Results"
+      element: "#current-history-panel .list-item:eq(1)"
+      intro: "Plotted Test Results"
+      position: "left"
+
+    - title: "Summary Plot"
+      element: "#current-history-panel .list-item:eq(0)"
+      intro: "Summary Plot"
+      position: "left"
+
+    - title: "End of the tour"
+      content: "The tour is completed. Enjoy!"
+      backdrop: true
