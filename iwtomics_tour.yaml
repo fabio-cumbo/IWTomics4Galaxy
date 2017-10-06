@@ -109,9 +109,9 @@ steps:
       intro: "search iwtomics"
       position: "right"
 
-    ##############################
-    ## start Load and Plot tool ##
-    ##############################
+    #####################################
+    ## start Load Smooth and Plot tool ##
+    #####################################
 
     - title: "Select Load and Plot tool"
       element: 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_loadandplot%2Fiwtomics_loadandplot%2F1.0.0.0"]'
@@ -251,5 +251,80 @@ steps:
       content: "Test and Plot tool description"
       backdrop: true
 
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="rdata"]'
+      intro: "select rdata"
+      position: "bottom"
     
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="regionids"]'
+      intro: "select regionids"
+      position: "bottom"
+
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="featureids"]'
+      intro: "select featureids"
+      position: "bottom"
+
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="regionssection|regions_0|region0"]'
+      intro: "select two-sample test"
+      position: "top"
+    
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="featureslist"]'
+      intro: "select features list"
+      position: "top"
+
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="conditionalstatistics|statistics"]'
+      intro: "select test statistics"
+      position: "top"
+
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="permutations"]'
+      intro: "select numer of permutations"
+      position: "top"
+    
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="plotres|alpha"]'
+      intro: "select the level of the test"
+      position: "top"
+
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="plotres|average"]'
+      intro: "plot the mean curves"
+      position: "top"
+
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="plotres|size"]'
+      intro: "plot sample size in each position"
+      position: "top"
+
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="plotres|conditionalplottype|plottype"]'
+      intro: "select plot type"
+      position: "top"
+
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="plotres|conditionalplottype|probabilitiessection|prob0"]'
+      intro: "select probabilities"
+      position: "top"
+
+    - title: "Select Test and Plot inputs and parameters"
+      element: 'div[tour_id$="plotsum|conditionalgroupby|groupby"]'
+      intro: "summary plot"
+      position: "top"
+
+    - title: "Execute Test and Plot tool"
+      element: '#execute'
+      intro: "execute Test and Plot tool"
+      position: "right"
+      postclick:
+        - '#execute'
+
+    - title: "Test and Plot executed"
+      content: "wait for the generation of the output files, than click next."
+      backdrop: true
+
     
