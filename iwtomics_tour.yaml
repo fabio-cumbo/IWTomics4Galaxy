@@ -5,24 +5,24 @@ title_default: "Welcome to IWTomics"
 
 steps:
     - title: "Welcome to IWTomics"
-      content: ""
+      content: "IWTomics is a tool to statistically evaluate differences in genomic features between groups of regions along the genome. This tour will guide you through a real data example. Please follow the instructions (interaction is required)."
       backdrop: true
     
     ######################
     ## load ETn example ##
     ######################
 
-    - title: "Upload your data"
+    - title: "Upload data"
       element: ".upload-button"
-      intro: ""
+      intro: "Upload BED files with the groups of regions to be compared, and TXT files with the corresponding genomic feature measurements."
       position: "right"
       postclick:
         - ".upload-button"
         - "#btn-new"
     
-    - title: "Upload your data"
+    - title: "Upload data"
       element: ".upload-text-content:first"
-      intro: "ETn example from GitHub repo: regions and features"
+      intro: "ETn example: real data from Campos-Sànchez et al. (2016). Upload 'Fixed ETn' and 'Control' regions, as well as 'Recombination Hotspot' content."
       position: "top"
       textinsert: |
         https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/DESCRIPTION.txt
@@ -30,39 +30,46 @@ steps:
         https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/Control.bed
         https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/Recombination_hotspots.txt
 
-    - title: "Start the upload of regions and features"
+    - title: "Select automatic file type"
+      element: ".upload-extension:first"
+      intro: "INTERACTION REQUIRED: Select 'Auto-detect' type, then click 'Next'."
+      position: "top"
+      # does not work: let the user select the 'tabular' data type for headers
+      #textinsert: "tabular"
+
+    - title: "Start uploading data"
       element: "#btn-start"
-      intro: "Upload the data into your Galaxy history."
+      intro: "Upload files into Galaxy history."
       position: "top"
       postclick:
         - "#btn-start"
 
     - title: "Wait"
       element: ".upload-text-content:first"
-      intro: "Wait until this block is green, than click next"
+      intro: "Wait until this block is green, then click 'Next'."
       position: "bottom"
       postclick:
         - "#btn-reset"
         - "#btn-new"
 
-    - title: "Upload your data"
+    - title: "Upload data"
       element: ".upload-text-content:first"
-      intro: "ETn example from GitHub repo: headers"
+      intro: "ETn example: real data from Campos-Sànchez et al. (2016). Upload header files for regions and features."
       position: "top"
       textinsert: |
         https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/regions_header.tabular
         https://raw.githubusercontent.com/fabio-cumbo/IWTomics4Galaxy/master/ETn_example/features_header.tabular
     
-    - title: "Set headers data type"
+    - title: "Select header file type"
       element: ".upload-extension:first"
-      intro: "Set tabular data type for headers"
+      intro: "INTERACTION REQUIRED: Select 'tabular' type, then click 'Next'."
       position: "top"
       # does not work: let the user select the 'tabular' data type for headers
       #textinsert: "tabular"
 
-    - title: "Start the upload of headers"
+    - title: "Start uploading header files"
       element: "#btn-start"
-      intro: "Upload the data into your Galaxy history."
+      intro: "Upload files into Galaxy history."
       position: "top"
       postclick:
         - "#btn-start"
@@ -74,27 +81,27 @@ steps:
       postclick:
         - "#btn-close"
 
-    - title: "Description"
+    - title: "Description File"
       element: "#current-history-panel .list-item:eq(5)"
-      intro: "DESCRIPTION.txt"
+      intro: "DESCRIPTION.txt contains a description of the ETn dataset. Click on the eye symbol to inspect it."
       position: "left"
 
-    - title: "ETn fixed BED"
+    - title: "Fixed ETn Regions"
       element: "#current-history-panel .list-item:eq(4)"
-      intro: "ETn_fixed.bed.txt"
+      intro: "ETn_fixed.bed contains genomic coordinates of 1296 64-kb regions flanking fixed ETn elements (elements of the Early Transposon family of active Endogenous Retroviruses in mouse). Click on the eye symbol to inspect it."
       position: "left"
 
-    - title: "Control"
+    - title: "Control Regions"
       element: "#current-history-panel .list-item:eq(3)"
-      intro: "Control.bed"
+      intro: "Control.bed contains genomic coordinates of 1142 64-kb regions that do not overlap ETn flanking regions. Click on the eye symbol to inspect it."
       position: "left"
     
-    - title: "Regions Header"
+    - title: "Recombination Hotspot Content"
       element: "#current-history-panel .list-item:eq(2)"
-      intro: "Recombination_hotspots.txt"
+      intro: "Recombination_hotspots.txt "
       position: "left"
 
-    - title: "Recombination Hotspots"
+    - title: "Regions Header"
       element: "#current-history-panel .list-item:eq(1)"
       intro: "regions.header"
       position: "left"
