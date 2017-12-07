@@ -113,7 +113,7 @@ steps:
 
     - title: "Search for the IWTomics suite"
       element: "#tool-search-query"
-      intro: "INTERACTION REQUIRED: Write 'IWTomics' in the search field. The IWTomics suite contains three tools that should be used sequentially, then click 'Next'."
+      intro: "INTERACTION REQUIRED: Write 'IWTomics' in the search field. The IWTomics suite contains three tools: 'Load, Smooth and Plot', 'Test and Plot', and 'Plot with Threshold on Test Scale'. Those tools should be used sequentially. Click 'Next' to continue the tour."
       position: "right"
 
     #####################################
