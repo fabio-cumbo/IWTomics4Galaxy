@@ -247,228 +247,228 @@ steps:
     ## start Test and Plot tool ##
     ##############################
 
-    - title: "Select Test and Plot tool"
+    - title: "Select 'Test and Plot' tool"
       element: 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_testandplot%2Fiwtomics_testandplot%2F1.0.0.0"]'
-      intro: "select Test and Plot tool"
+      intro: "Select 'Test and Plot' tool."
       position: "right"
       postclick:
         - 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_testandplot%2Fiwtomics_testandplot%2F1.0.0.0"]'
 
-    - title: "Test and Plot"
-      content: "Test and Plot tool description"
+    - title: "'Test and Plot' tool"
+      content: "'Test and Plot' tool statistically evaluates differences in feature measurements between pairs of genomic region datasets. In particular, it implements the Interval-Wise Testing for omics data."
       backdrop: true
 
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select IWTomicsData object"
       element: 'div[tour_id$="rdata"]'
-      intro: "select rdata"
+      intro: "INTERACTION REQUIRED: select the IWTomicsData Object created by 'Load, Smooth and Plot' tool, then click 'Next'."
       position: "bottom"
     
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select region dataset IDs"
       element: 'div[tour_id$="regionids"]'
-      intro: "select regionids"
+      intro: "INTERACTION REQUIRED: select the Region Dataset IDs created by 'Load, Smooth and Plot' tool, then click 'Next'."
       position: "bottom"
 
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select feature IDs"
       element: 'div[tour_id$="featureids"]'
-      intro: "select featureids"
+      intro: "INTERACTION REQUIRED: select the Feature IDs created by 'Load, Smooth and Plot' tool, then click 'Next'."
       position: "bottom"
 
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select regions for Interval-Wise Testing"
       element: 'div[tour_id$="regionssection|regions_0|region0"]'
-      intro: "select two-sample test"
+      intro: "INTERACTION REQUIRED: select pairs of genomic region datasets to be compared using two-sample Interval-Wise Testing. In this example we consider one two-sample test contrasting 'ETn_fixed' (select it as 'Region 1') to 'Control' (select it as 'Region 2'), then click 'Next'."
       position: "top"
     
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select features"
       element: 'div[tour_id$="featureslist"]'
-      intro: "select features list"
+      intro: "INTERACTION REQUIRED: select feature measurements to be tested. In this example, select 'Recomb_hot' feature, then click 'Next'."
       position: "top"
 
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select test statistics"
       element: 'div[tour_id$="conditionalstatistics|statistics"]'
-      intro: "select test statistics"
+      intro: "Select the test statistics to be employed in the test. Default is 'Mean difference'. Other choices are 'Median difference', 'Variance ratio', and 'Quantile difference(s)'."
       position: "top"
 
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select number of permutations"
       element: 'div[tour_id$="permutations"]'
-      intro: "select numer of permutations"
+      intro: "Select number of permutations to be used to compute p-values."
       position: "top"
     
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select alpha"
       element: 'div[tour_id$="plotres|alpha"]'
-      intro: "select the level of the test"
+      intro: "Select the level alpha of the test (significance level of the test)."
       position: "top"
 
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Plot the mean curves"
       element: 'div[tour_id$="plotres|average"]'
-      intro: "plot the mean curves"
+      intro: "If 'Yes' is selected, a mean feature curve is plotted for each region dataset."
       position: "top"
 
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Plot sample size in each position"
       element: 'div[tour_id$="plotres|size"]'
-      intro: "plot sample size in each position"
+      intro: "If 'Yes' is selected, an heatmap with the sample size in each position is plotted for each region dataset."
       position: "top"
 
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select plot type"
       element: 'div[tour_id$="plotres|conditionalplottype|plottype"]'
-      intro: "select plot type"
+      intro: "Select the graphical representation type: 'Pointwise quantile curves (boxplot)' or 'Curves (aligned)'. In this example we draw a pointwise boxplot."
       position: "top"
 
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select probabilities"
       element: 'div[tour_id$="plotres|conditionalplottype|probabilitiessection|prob0"]'
-      intro: "select probabilities"
+      intro: "Select the probabilities corresponding to the quantile curves to be drawn. Default option is 0.25, 0.50, and 0.75."
       position: "top"
 
-    - title: "Select Test and Plot inputs and parameters"
+    - title: "Select summary plot"
       element: 'div[tour_id$="plotsum|conditionalgroupby|groupby"]'
-      intro: "summary plot"
+      intro: "Select the summary plot to be drawn. Default is 'No plot'. Other choices are a summary plot for each test ('Group by test') and a summary plot for each feature ('Group by feature'). In this example we are performing only one test on one feature, so we select 'No plot'."
       position: "top"
 
-    - title: "Execute Test and Plot tool"
+    - title: "Execute 'Test and Plot' tool"
       element: '#execute'
-      intro: "execute Test and Plot tool"
+      intro: "Execute the tool."
       position: "right"
       postclick:
         - '#execute'
 
-    - title: "Test and Plot executed"
-      content: "wait for the generation of the output files, than click next."
+    - title: "Wait"
+      content: "Wait until the results are created, then click 'Next'."
       backdrop: true
 
     - title: "Adjusted p-value Matrix"
       element: "#current-history-panel .list-item:eq(5)"
-      intro: "Adjusted p-value Matrix"
+      intro: "This is a TXT file with an adjusted p-value matrix for every test performed. Each matrix contains a p-value curve (row) for every scale considered in the test. Click on the eye symbol to inspect it."
       position: "left"
 
     - title: "Plotted Test Results"
       element: "#current-history-panel .list-item:eq(4)"
-      intro: "Plotted Test Results"
+      intro: "Plotted Test Results is a PDF file with the plotted test results. Click on the eye symbol to inspect it."
       position: "left"
 
     - title: "Summary Plot"
       element: "#current-history-panel .list-item:eq(3)"
-      intro: "Summary Plot"
+      intro: "If a summary plot was selected in 'Test and Plot' tool, this is a PDF file with the summary plot. If 'No plot' was selected, this is empty."
       position: "left"
     
     - title: "IWTomicsData Object with Test Results"
       element: "#current-history-panel .list-item:eq(2)"
-      intro: "IWTomicsData Object with Test Results"
+      intro: "This is an RData with the IWTomicsData Object with the test results."
       position: "left"
 
     - title: "Test IDs"
       element: "#current-history-panel .list-item:eq(1)"
-      intro: "Test IDs"
+      intro: "Test IDs contains the test identifiers. Click on the eye symbol to inspect it."
       position: "left"
 
     - title: "Feature IDs"
       element: "#current-history-panel .list-item:eq(0)"
-      intro: "Feature IDs"
+      intro: "Feature IDs contains the feature identifiers. Click on the eye symbol to inspect it."
       position: "left"
 
-    - title: "Test and Plot completed"
-      content: "The Test and Plot tool has completed. Close the tour or continue to the next tool Plot with Threshold on Test Scale"
+    - title: "'Test and Plot' completed"
+      content: "The 'Test and Plot' tool demonstration is completed. Click 'Next' to continue with the tool 'Plot with Threshold on Test Scale'."
       backdrop: true
 
     #############################################
     ## start Plot with Threshold on Test Scale ##
     #############################################
 
-    - title: "Select Plot with Threshold on Test Scale tool"
+    - title: "Select 'Plot with Threshold on Test Scale' tool"
       element: 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_plotwithscale%2Fiwtomics_plotwithscale%2F1.0.0.0"]'
-      intro: "select Plot with Threshold on Test Scale tool"
+      intro: "Select 'Plot with Threshold on Test Scale' tool."
       position: "right"
       postclick:
         - 'a[href$="tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fiwtomics_plotwithscale%2Fiwtomics_plotwithscale%2F1.0.0.0"]'
 
-    - title: "Plot with Threshold on Test Scale"
-      content: "Plot with Threshold on Test Scale tool description"
+    - title: "'Plot with Threshold on Test Scale' tool"
+      content: "'Plot with Threshold on Test Scale' tool allows to select the scale for the Interval-Wise Testing results."
       backdrop: true
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Select IWTomicsData object with test results"
       element: 'div[tour_id$="rdata"]'
-      intro: "select rdata"
+      intro: "INTERACTION REQUIRED: select the IWTomicsData Object with Test Results created by 'Test and Plot' tool, then click 'Next'."
       position: "bottom"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Select test IDs"
       element: 'div[tour_id$="testids"]'
-      intro: "select test ids"
+      intro: "INTERACTION REQUIRED: select the Test IDs created by 'Test and Plot' tool, then click 'Next'."
       position: "bottom"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Select feature IDs"
       element: 'div[tour_id$="featureids"]'
-      intro: "select feature ids"
+      intro: "INTERACTION REQUIRED: select the Feature IDs created by 'Test and Plot' tool, then click 'Next'."
       position: "bottom"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Select scale"
       element: 'div[tour_id$="scalesection|thresholdontestscale_0|test"]'
-      intro: "select threshold on test scale: test id"
+      intro: "INTERACTION REQUIRED: select the scale to be used in Interval-Wise Testing results and plot. First, select the test identifier 'ETn_fixed vs Control', then click 'Next'."
       position: "top"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Select scale"
       element: 'div[tour_id$="scalesection|thresholdontestscale_0|feature"]'
-      intro: "select threshold on test scale: feature id"
+      intro: "INTERACTION REQUIRED: select the feature identifier 'Recomb_hot', then click 'Next'."
       position: "top"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Select scale"
       element: 'div[tour_id$="scalesection|thresholdontestscale_0|scale"]'
-      intro: "select threshold on test scale: scale"
+      intro: "INTERACTION REQUIRED: select the scale '8' (8-kb scale) for the test and feature selected above, then click 'Next'."
       position: "top"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Select alpha"
       element: 'div[tour_id$="plotres|alpha"]'
-      intro: "select level of the test: alpha"
+      intro: "Select the level alpha of the test (significance level of the test)."
       position: "top"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Plot the mean curves"
       element: 'div[tour_id$="plotres|average"]'
-      intro: "plot the mean curves"
+      intro: "If 'Yes' is selected, a mean feature curve is plotted for each region dataset."
       position: "top"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Plot sample size in each position"
       element: 'div[tour_id$="plotres|size"]'
-      intro: "plot sample size in each position"
+      intro: "If 'Yes' is selected, an heatmap with the sample size in each position is plotted for each region dataset."
       position: "top"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Select plot type"
       element: 'div[tour_id$="plotres|conditionalplottype|plottype"]'
-      intro: "select plot type"
+      intro: "Select the graphical representation type: 'Pointwise quantile curves (boxplot)' or 'Curves (aligned)'. In this example we draw a pointwise boxplot."
       position: "top"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Select probabilities"
       element: 'div[tour_id$="plotres|conditionalplottype|probabilitiessection|prob0"]'
-      intro: "select probabilities"
+      intro: "Select the probabilities corresponding to the quantile curves to be drawn. Default option is 0.25, 0.50, and 0.75."
       position: "top"
 
-    - title: "Select Plot with Threshold on Test Scale inputs and parameters"
+    - title: "Select summary plot"
       element: 'div[tour_id$="plotsum|conditionalgroupby|groupby"]'
-      intro: "summary plot"
+      intro: "Select the summary plot to be drawn. Default is 'No plot'. Other choices are a summary plot for each test ('Group by test') and a summary plot for each feature ('Group by feature'). In this example we are performing only one test on one feature, so we select 'No plot'."
       position: "top"
 
-    - title: "Execute Plot with Threshold on Test Scale tool"
+    - title: "Execute 'Plot with Threshold on Test Scale' tool"
       element: '#execute'
-      intro: "execute Plot with Threshold on Test Scale tool"
+      intro: "Execute the tool."
       position: "right"
       postclick:
         - '#execute'
 
-    - title: "Plot with Threshold on Test Scale executed"
-      content: "wait for the generation of the output files, than click next."
+    - title: "Wait"
+      content: "Wait until the results are created, then click 'Next'."
       backdrop: true
 
     - title: "Adjusted p-value"
       element: "#current-history-panel .list-item:eq(2)"
-      intro: "Adjusted p-value"
+      intro: "This is a TXT file with an adjusted p-value curve for every test performed at the selected scale. Click on the eye symbol to inspect it."
       position: "left"
 
     - title: "Plotted Test Results"
       element: "#current-history-panel .list-item:eq(1)"
-      intro: "Plotted Test Results"
+      intro: "Plotted Test Results is a PDF file with the plotted test results, at the selected scale. Click on the eye symbol to inspect it."
       position: "left"
 
     - title: "Summary Plot"
       element: "#current-history-panel .list-item:eq(0)"
-      intro: "Summary Plot"
+      intro: "If a summary plot was selected in 'Test and Plot' tool, this is a PDF file with the summary plot. If 'No plot' was selected, this is empty."
       position: "left"
 
     - title: "End of the tour"
-      content: "The tour is completed. Enjoy!"
+      content: "IWTomics tour is completed. Enjoy!"
       backdrop: true
